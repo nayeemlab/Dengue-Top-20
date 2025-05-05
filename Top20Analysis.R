@@ -33,54 +33,49 @@ library(mgcv)
 library(GGally)
 library(mgcv)
 library(visreg)
-
-setwd('E:\\ResearchProject\\Najmul Bhai\\Dengue\\Dengue Top 20')
-Dengue <- read.csv("Dengue_World_2010-2024.csv")
-
-#Top20 CFR Countries in last week
-Top20 <- subset(Dengue, Dengue$Year >= 2019 & Dengue$Cases >= 50000)
-
-Top20$CFR
-
-Top20add <- aggregate(Top20$CFR, by= list(Top20$Countrys), FUN=mean, na.rm=TRUE) # Seasonal mean mean EIP of 22,006 Farms (3 seasons)
-Top20add
-
-#Top20 CFR Countries in last wee
-
-sort_Top20<- Top20add[order(-Top20add$x),]
-sort_Top20$Group.1
-
-#Time series
-tiff("CFR.tiff", units="in", width=6, height=5, res=300)
-
-
 library(ggplot2)
 
-df2 <- data.frame(Countries=rep(c("Bangladesh", "Burkina Faso", "Peru", "Guatemala", "Ecuador",
-                                  "Panama", "India", "Thailand", "Honduras", "Nepal", "Mexico",
-                                  "Colombia", "Guyana", "Argentina", "Sri Lanka", "Bolivia",
-                                  "Malaysia", "Brazil", "Paraguay", "Pakistan")),
-                  CFR=c(0.525,
-                        0.255,
+df2 <- data.frame(Countries=rep(c("Bangladesh",
+                                  "Dominican Republic",
+                                  "Burkina Faso",
+                                  "India",
+                                  "Sri Lanka",
+                                  "Peru",
+                                  "Guatemala",
+                                  "Pakistan",
+                                  "Venezuela",
+                                  "Panama",
+                                  "Malaysia",
+                                  "Nepal",
+                                  "Honduras",
+                                  "Thailand",
+                                  "Colombia",
+                                  "Ecuador",
+                                  "Guyana",
+                                  "Mexico",
+                                  "Argentina",
+                                  "Brazil")),
+                  CFR=c(0.436,
+                        0.399,
+                        0.263,
+                        0.151,
+                        0.149,
                         0.125,
-                        0.120,
-                        0.114,
-                        0.107,
-                        0.106,
-                        0.097,
-                        0.092,
-                        0.083,
+                        0.125,
+                        0.101,
+                        0.099,
+                        0.091,
+                        0.090,
                         0.082,
-                        0.070,
+                        0.080,
+                        0.077,
+                        0.075,
+                        0.071,
                         0.067,
                         0.066,
-                        0.056,
-                        0.055,
-                        0.055,
-                        0.053,
-                        0.042,
-                        0.041
-                  ))
+                        0.058,
+                        0.047
+                        ))
 
 head(df2)
 
@@ -90,7 +85,7 @@ f <- ggplot(df2, aes(x = CFR, y = reorder(Countries, CFR)))
 f <- f + geom_col(fill = "#0073C2FF")+
   geom_text(aes(label = CFR), vjust = 0.4, hjust = 1.1, color = "black") +
   labs(y = "Countries", x = "CFR (%)") + 
-  ggtitle("Top 20 Countries with Highest CFR from 2022 to 2024") +
+  ggtitle("Top 20 Countries with Highest CFR from 2014 to 2024") +
   theme(
     axis.text.x = element_blank(),
     axis.ticks.x = element_blank(),
@@ -104,7 +99,7 @@ f
 
 
 
-tiff("Top20CFR.tiff", units="in", width=10, height=6, res=300)
+tiff("Top20CFR2014-24.tiff", units="in", width=10, height=6, res=300)
 
 gridExtra::grid.arrange(f)
 dev.off()
@@ -118,6 +113,83 @@ dev.off()
 
 
 
+
+df2 <- data.frame(Countries=rep(c("Bangladesh",
+                                  "Dominican Republic",
+                                  "Burkina Faso",
+                                  "Pakistan",
+                                  "Peru",
+                                  "Guatemala",
+                                  "India",
+                                  "Panama",
+                                  "Honduras",
+                                  "Sri Lanka",
+                                  "Thailand",
+                                  "Ecuador",
+                                  "Malaysia",
+                                  "Mexico",
+                                  "Nepal",
+                                  "Guyana",
+                                  "Colombia",
+                                  "Argentina",
+                                  "Bolivia",
+                                  "Brazil")),
+                  CFR=c(0.443,
+                        0.294,
+                        0.263,
+                        0.132,
+                        0.127,
+                        0.126,
+                        0.123,
+                        0.100,
+                        0.100,
+                        0.096,
+                        0.095,
+                        0.094,
+                        0.090,
+                        0.085,
+                        0.079,
+                        0.069,
+                        0.067,
+                        0.063,
+                        0.054,
+                        0.048
+                  ))
+
+head(df2)
+
+f <- ggplot(df2, aes(x = CFR, y = reorder(Countries, CFR)))
+
+# Label inside bars, vjust = 1.6
+f <- f + geom_col(fill = "#0073C2FF")+
+  geom_text(aes(label = CFR), vjust = 0.4, hjust = 1.1, color = "black") +
+  labs(y = "Countries", x = "CFR (%)") + 
+  ggtitle("Top 20 Countries with Highest CFR from 2019 to 2024") +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    panel.grid = element_blank(),
+    legend.position="none",
+    axis.text=element_text(size=12,face="bold"),
+    axis.title=element_text(size=14,face="bold"),
+    plot.title = element_text(size = 16, face = "bold",hjust = 0.5),
+    panel.spacing = unit(0.05, "cm"))
+f
+
+
+
+tiff("Top20CFR2019-24.tiff", units="in", width=10, height=6, res=300)
+
+gridExtra::grid.arrange(f)
+dev.off()
+
+
+
+
+
+
+setwd('E:\\ResearchProject\\Najmul Bhai\\Dengue\\Dengue Top 20')
+Dengue <- read.csv("Dengue_World_2010-2024.csv")
 
 
 
